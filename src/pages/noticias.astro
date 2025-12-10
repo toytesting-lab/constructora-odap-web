@@ -1,9 +1,10 @@
 ---
 // src/pages/noticias/[...slug].astro
 import { getCollection, getEntryBySlug } from 'astro:content';
-// RUTA DE LAYOUT COMPROBADA (Dos niveles hacia atrás)
-import Layout from '../../layouts/Layout.astro'; 
-// IMPORT DE MARKDOWN CORREGIDO (La sintaxis nativa de Astro que resuelve el error de Rollup)
+// CORRECCIÓN FINAL: Cambiada la ruta del Layout de '../../layouts/Layout.astro' a '../layouts/Layout.astro' 
+// Esto resuelve el error "Could not resolve" reportado por Rollup.
+import Layout from '../layouts/Layout.astro'; 
+// SINTAXIS DE MARKDOWN CORRECTA: Resuelve el error de Rollup de "@astrojs/markdown"
 import { Markdown } from 'astro/components'; 
 
 export async function getStaticPaths() {
