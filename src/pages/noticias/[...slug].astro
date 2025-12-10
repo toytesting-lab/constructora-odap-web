@@ -1,0 +1,45 @@
+---
+// src/pages/noticias/[...slug].astro
+import { getCollection, getEntryBySlug } from 'astro:content';
+import Layout from '../../layouts/Layout.astro'; // Ajusta el path si es necesario
+import Markdown from '@astrojs/markdown'; // Necesario para renderizar el body
+
+export async function getStaticPaths() {
+  const entradas = await getCollection('noticias');
+  return entradas.map((entrada) => ({
+    params: { slug: entrada.slug },
+    props: { entrada },
+  }));
+}
+
+const { entrada } = Astro.props;
+
+// Obtén el contenido (body) de la noticia
+const contenido = await getEntryBySlug('noticias', entrada.slug);
+---
+
+<Layout title={contenido.data.title}>
+    <main style="padding: 40px; max-width: 800px; margin: 0 auto;">
+        <article>
+            <h1 style="color: #333;">{contenido.data.title}</h1>
+            <p style="color: #999;">Publicado: {contenido.data.date.toLocaleDateString()}</p>
+            
+            {contenido.data.image && (
+                <img 
+                    src={contenido.data.image} 
+                    alt={contenido.data.title} 
+                    style="max-width: 100%; height: auto; margin-bottom: 20px;"
+                />
+            )}
+            
+            <div style="line-height: 1.6;">
+                {/* Renderiza el contenido Markdown del CMS */}
+                <Markdown>{contenido.body}</Markdown>
+            </div>
+            
+            <a href="/noticias" style="display: block; margin-top: 30px; color: #007bff;">
+                ← Volver al Listado de Noticias
+            </a>
+        </article>
+    </main>
+</Layout>

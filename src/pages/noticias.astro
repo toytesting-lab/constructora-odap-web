@@ -1,0 +1,31 @@
+---
+// src/pages/noticias.astro
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro'; // Asumo que tienes un Layout.astro
+
+const todasLasNoticias = await getCollection('noticias');
+---
+
+<Layout title="Noticias de la Constructora">
+    <main style="padding: 40px; max-width: 800px; margin: 0 auto;">
+        <h1>Noticias y Novedades</h1>
+        <p>Aquí listamos el contenido que se sube desde el CMS.</p>
+        
+        {todasLasNoticias.length === 0 ? (
+            <p>Aún no hay noticias publicadas.</p>
+        ) : (
+            <ul style="list-style: none; padding: 0;">
+                {todasLasNoticias.map((noticia) => (
+                    <li key={noticia.slug} style="border-bottom: 1px solid #eee; padding: 15px 0;">
+                        <a href={`/noticias/${noticia.slug}`} style="text-decoration: none; color: #007bff; font-size: 1.2em;">
+                            {noticia.data.title}
+                        </a>
+                        <p style="margin: 5px 0 0; color: #666;">
+                            Publicado el: {noticia.data.date.toLocaleDateString()}
+                        </p>
+                    </li>
+                ))}
+            </ul>
+        )}
+    </main>
+</Layout>
