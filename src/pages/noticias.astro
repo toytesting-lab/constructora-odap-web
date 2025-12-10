@@ -1,8 +1,8 @@
 ---
 // src/pages/noticias.astro
 import { getCollection } from 'astro:content';
-// CORRECCIÓN DE RUTA FINAL: Ajustada a dos niveles (../../) para resolver el error "Could not resolve" en Netlify.
-import Layout from '../../layouts/Layout.astro'; 
+// USANDO ALIAS FINAL: El alias `~` apunta a 'src/', resolviendo los problemas de ruta
+import Layout from '~/layouts/Layout.astro'; 
 
 const todasLasNoticias = await getCollection('noticias');
 ---
