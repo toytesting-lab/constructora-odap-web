@@ -1,0 +1,31 @@
+---
+import { Navbar } from '../components/Navbar';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Mensaje Enviado - Constructora ODAP</title>
+  </head>
+  <body class="bg-gray-900 text-white flex flex-col min-h-screen">
+    <Navbar client:load />
+
+    <div class="flex-grow flex items-center justify-center px-6">
+      <div class="text-center max-w-lg">
+        <div class="bg-green-500 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-500/50">
+          <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+        </div>
+
+        <h1 class="text-4xl font-bold mb-4">¡Mensaje Recibido!</h1>
+        <p class="text-gray-400 text-lg mb-8">
+          Gracias por contactarnos. Hemos recibido tu solicitud correctamente y nuestro equipo te responderá a la brevedad.
+        </p>
+
+        <a href="/" class="inline-block bg-yellow-500 text-black font-bold py-3 px-8 rounded hover:bg-yellow-400 transition-colors uppercase tracking-wide">
+          Volver al Inicio
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

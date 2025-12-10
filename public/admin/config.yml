@@ -1,0 +1,18 @@
+backend:
+  name: git-gateway
+  branch: main # Ojo: Aseguraremos que tu rama se llame main o master
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "noticias"
+    label: "Noticias y Novedades"
+    folder: "src/content/noticias"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Título", name: "title", widget: "string"}
+      - {label: "Fecha de Publicación", name: "date", widget: "datetime"}
+      - {label: "Imagen Destacada", name: "image", widget: "image"}
+      - {label: "Cuerpo de la Noticia", name: "body", widget: "markdown"}

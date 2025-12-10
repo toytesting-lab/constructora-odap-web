@@ -1,0 +1,26 @@
+---
+import { Navbar } from '../components/Navbar';
+import { Hero } from '../components/Hero';
+import { About } from '../components/About';
+import { Projects } from '../components/Projects';
+import { Services } from '../components/Services';
+import { Contact } from '../components/Contact';
+import { WhatsApp } from '../components/WhatsApp';
+---
+
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Constructora - Inicio</title>
+  </head>
+  <body class="bg-gray-900">
+    <Navbar client:load />
+    <Hero client:load />
+    <About client:visible />
+    <Projects client:visible />
+    <Services client:visible />
+    <Contact client:visible />
+    <WhatsApp client:load />
+  </body>
+</html>
