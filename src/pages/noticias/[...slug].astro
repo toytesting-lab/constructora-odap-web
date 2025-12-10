@@ -1,8 +1,9 @@
 ---
 // src/pages/noticias/[...slug].astro
 import { getCollection, getEntryBySlug } from 'astro:content';
-import Layout from '../../layouts/Layout.astro'; // Ajusta el path si es necesario
-import { Markdown } from 'astro/components';
+import Layout from '../../layouts/Layout.astro';
+// LÍNEA CORREGIDA: Importa el componente nativo de Markdown desde Astro.
+import { Markdown } from 'astro/components'; 
 
 export async function getStaticPaths() {
   const entradas = await getCollection('noticias');
@@ -33,7 +34,7 @@ const contenido = await getEntryBySlug('noticias', entrada.slug);
             )}
             
             <div style="line-height: 1.6;">
-                {/* Renderiza el contenido Markdown del CMS */}
+                {/* Renderiza el contenido Markdown del CMS usando el componente corregido */}
                 <Markdown>{contenido.body}</Markdown>
             </div>
             
