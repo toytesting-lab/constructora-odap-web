@@ -1,31 +1,47 @@
 ---
-// src/pages/noticias.astro
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro'; // Asumo que tienes un Layout.astro
+// src/pages/noticias/[...slug].astro
+import { getCollection, getEntryBySlug } from 'astro:content';
+// RUTA DE LAYOUT COMPROBADA (Dos niveles hacia atrás)
+import Layout from '../../layouts/Layout.astro'; 
+// IMPORT DE MARKDOWN CORREGIDO (La sintaxis nativa de Astro que resuelve el error de Rollup)
+import { Markdown } from 'astro/components'; 
 
-const todasLasNoticias = await getCollection('noticias');
+export async function getStaticPaths() {
+  const entradas = await getCollection('noticias');
+  return entradas.map((entrada) => ({
+    params: { slug: entrada.slug },
+    props: { entrada },
+  }));
+}
+
+const { entrada } = Astro.props;
+
+// Obtén el contenido (body) de la noticia
+const contenido = await getEntryBySlug('noticias', entrada.slug);
 ---
 
-<Layout title="Noticias de la Constructora">
+<Layout title={contenido.data.title}>
     <main style="padding: 40px; max-width: 800px; margin: 0 auto;">
-        <h1>Noticias y Novedades</h1>
-        <p>Aquí listamos el contenido que se sube desde el CMS.</p>
-        
-        {todasLasNoticias.length === 0 ? (
-            <p>Aún no hay noticias publicadas.</p>
-        ) : (
-            <ul style="list-style: none; padding: 0;">
-                {todasLasNoticias.map((noticia) => (
-                    <li key={noticia.slug} style="border-bottom: 1px solid #eee; padding: 15px 0;">
-                        <a href={`/noticias/${noticia.slug}`} style="text-decoration: none; color: #007bff; font-size: 1.2em;">
-                            {noticia.data.title}
-                        </a>
-                        <p style="margin: 5px 0 0; color: #666;">
-                            Publicado el: {noticia.data.date.toLocaleDateString()}
-                        </p>
-                    </li>
-                ))}
-            </ul>
-        )}
+        <article>
+            <h1 style="color: #333;">{contenido.data.title}</h1>
+            <p style="color: #999;">Publicado: {contenido.data.date.toLocaleDateString()}</p>
+            
+            {contenido.data.image && (
+                <img 
+                    src={contenido.data.image} 
+                    alt={contenido.data.title} 
+                    style="max-width: 100%; height: auto; margin-bottom: 20px;"
+                />
+            )}
+            
+            <div style="line-height: 1.6;">
+                {/* Renderiza el contenido Markdown del CMS */}
+                <Markdown>{contenido.body}</Markdown>
+            </div>
+            
+            <a href="/noticias" style="display: block; margin-top: 30px; color: #007bff;">
+                ← Volver al Listado de Noticias
+            </a>
+        </article>
     </main>
 </Layout>
