@@ -2,7 +2,7 @@
 // src/pages/noticias/[...slug].astro
 import { getCollection, getEntryBySlug } from 'astro:content';
 import Layout from '../../layouts/Layout.astro'; // Ajusta el path si es necesario
-import Markdown from '@astrojs/markdown'; // Necesario para renderizar el body
+import { Markdown } from 'astro/components';
 
 export async function getStaticPaths() {
   const entradas = await getCollection('noticias');
